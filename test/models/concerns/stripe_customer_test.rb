@@ -2,6 +2,11 @@ module StripeCustomerTest
   extend ActiveSupport::Concern
 
   included do
+    test "#stripe_customer_id exists on objects" do
+      assert_respond_to @non_stripe_customer, :stripe_customer_id
+      assert_respond_to @existing_stripe_customer, :stripe_customer_id
+    end
+
     test "#create_stripe_customer saves a stripe_customer_id" do
       Stripe::Customer.stubs(:create)
         .returns(Stripe::Customer.new(id: new_customer_id = "new customer id"))
