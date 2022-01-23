@@ -7,7 +7,7 @@ module StripeCustomer
     def create_stipe_customer
       raise ExistingStripeCustomerError if stripe_customer_id
 
-      customer = Stripe::Customer.create
+      customer = Stripe::Customer.create({name: name, email: email})
       update stripe_customer_id: customer.id
     end
   end
