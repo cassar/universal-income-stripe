@@ -23,5 +23,23 @@ module StripeCustomerTest
         @existing_stripe_customer.create_stipe_customer
       end
     end
+
+    test "#charge_stripe_customer with non existing stripe customer" do
+      assert_raises StripeCustomer::NonExistingStripeCustomerError do
+        @non_stripe_customer.charge_stripe_customer(amount: 5000)
+      end
+    end
+
+    test "#charge_stripe_customer with existing stripe customer" do
+      amount = 5000
+      Stripe::Charge.stubs(:create)
+        .with({
+          amount: amount,
+          currency: StripeCustomer::DEFAULT_CURRENCY,
+          customer: @existing_stripe_customer.stripe_customer_id
+        })
+        .once
+      @existing_stripe_customer.charge_stripe_customer(amount: amount)
+    end
   end
 end
