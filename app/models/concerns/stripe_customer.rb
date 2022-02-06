@@ -16,7 +16,7 @@ module StripeCustomer
       update stripe_customer_id: customer.id
     end
 
-    def create_stripe_card
+    def create_stripe_card!
       raise NonExistingStripeCustomerError unless stripe_customer_id
       raise ExistingStripeCardError if stripe_card_id
 

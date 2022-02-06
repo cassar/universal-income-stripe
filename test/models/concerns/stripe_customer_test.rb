@@ -31,19 +31,19 @@ module StripeCustomerTest
       assert_equal new_customer_id, @non_stripe_customer.stripe_customer_id
     end
 
-    test "#create_stripe_card with new stripe customer" do
+    test "#create_stripe_card! with new stripe customer" do
       assert_raises StripeCustomer::NonExistingStripeCustomerError do
-        @non_stripe_customer.create_stripe_card
+        @non_stripe_customer.create_stripe_card!
       end
     end
 
-    test '#create_stripe_card with existing stripe card' do
+    test '#create_stripe_card! with existing stripe card' do
       assert_raises StripeCustomer::ExistingStripeCardError do
-        @stripe_card_customer.create_stripe_card
+        @stripe_card_customer.create_stripe_card!
       end
     end
 
-    test "#create_stripe_card with existing stripe customer" do
+    test "#create_stripe_card! with existing stripe customer" do
       stripe_card_id = "stripe card id"
       Stripe::Customer.stubs(:create_source)
         .with(
@@ -55,7 +55,7 @@ module StripeCustomerTest
         .returns(Stripe::Card.new(id: stripe_card_id))
         .once
 
-      @existing_stripe_customer.create_stripe_card
+      @existing_stripe_customer.create_stripe_card!
 
       assert_equal stripe_card_id, @existing_stripe_customer.stripe_card_id
     end
