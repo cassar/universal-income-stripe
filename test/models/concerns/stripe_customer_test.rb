@@ -4,19 +4,19 @@ module StripeCustomerTest
   included do
     test "#stripe_customer_id" do
       assert_respond_to @non_stripe_customer, :stripe_customer_id
-      assert_respond_to @existing_stripe_customer, :stripe_customer_id
+      assert_respond_to @stripe_customer, :stripe_customer_id
       assert_respond_to @stripe_card_customer, :stripe_customer_id
     end
 
     test "#stripe_card_id" do
       assert_respond_to @non_stripe_customer, :stripe_card_id
-      assert_respond_to @existing_stripe_customer, :stripe_card_id
+      assert_respond_to @stripe_customer, :stripe_card_id
       assert_respond_to @stripe_card_customer, :stripe_card_id
     end
 
     test "#create_stipe_customer! with existing stripe customer" do
       assert_raises StripeCustomer::ExistingStripeCustomerError do
-        @existing_stripe_customer.create_stipe_customer!
+        @stripe_customer.create_stipe_customer!
       end
     end
 
@@ -47,7 +47,7 @@ module StripeCustomerTest
       stripe_card_id = "stripe card id"
       Stripe::Customer.stubs(:create_source)
         .with(
-          @existing_stripe_customer.stripe_customer_id,
+          @stripe_customer.stripe_customer_id,
           {
             source: StripeCustomer::DEFAULT_SOURCE,
           }
@@ -55,9 +55,9 @@ module StripeCustomerTest
         .returns(Stripe::Card.new(id: stripe_card_id))
         .once
 
-      @existing_stripe_customer.create_stripe_card!
+      @stripe_customer.create_stripe_card!
 
-      assert_equal stripe_card_id, @existing_stripe_customer.stripe_card_id
+      assert_equal stripe_card_id, @stripe_customer.stripe_card_id
     end
 
     test "#create_stripe_charge! with new stripe customer" do
@@ -72,10 +72,10 @@ module StripeCustomerTest
         .with({
           amount: amount,
           currency: StripeCustomer::DEFAULT_CURRENCY,
-          customer: @existing_stripe_customer.stripe_customer_id
+          customer: @stripe_customer.stripe_customer_id
         })
         .once
-      @existing_stripe_customer.create_stripe_charge!(amount: amount)
+      @stripe_customer.create_stripe_charge!(amount: amount)
     end
   end
 end
