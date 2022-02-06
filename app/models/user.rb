@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  include StripeCustomer
+  include StripeCustomer, StripeBalance
 
   has_many :charges
 

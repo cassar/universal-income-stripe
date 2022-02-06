@@ -1,12 +1,13 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  include StripeCustomerTest
+  include StripeCustomerTest, StripeBalanceTest
 
   setup do
     @non_stripe_customer = users(:one)
     @stripe_customer = users(:stripe_customer)
     @stripe_card_customer = users(:stripe_card_customer)
+    @balanceable_class = User
   end
 
   test "associations" do
