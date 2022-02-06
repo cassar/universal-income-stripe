@@ -60,13 +60,13 @@ module StripeCustomerTest
       assert_equal stripe_card_id, @existing_stripe_customer.stripe_card_id
     end
 
-    test "#charge_stripe_customer with new stripe customer" do
+    test "#create_stripe_charge with new stripe customer" do
       assert_raises StripeCustomer::NonExistingStripeCustomerError do
-        @non_stripe_customer.charge_stripe_customer(amount: 5000)
+        @non_stripe_customer.create_stripe_charge(amount: 5000)
       end
     end
 
-    test "#charge_stripe_customer with existing stripe customer" do
+    test "#create_stripe_charge with existing stripe customer" do
       amount = 5000
       Stripe::Charge.stubs(:create)
         .with({
@@ -75,7 +75,7 @@ module StripeCustomerTest
           customer: @existing_stripe_customer.stripe_customer_id
         })
         .once
-      @existing_stripe_customer.charge_stripe_customer(amount: amount)
+      @existing_stripe_customer.create_stripe_charge(amount: amount)
     end
   end
 end

@@ -29,7 +29,7 @@ module StripeCustomer
       update stripe_card_id: card.id
     end
 
-    def charge_stripe_customer(amount:)
+    def create_stripe_charge(amount:)
       raise NonExistingStripeCustomerError unless stripe_customer_id
 
       Stripe::Charge.create({
