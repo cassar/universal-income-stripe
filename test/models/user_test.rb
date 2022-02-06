@@ -6,6 +6,7 @@ class UserTest < ActiveSupport::TestCase
   setup do
     @non_stripe_customer = users(:one)
     @existing_stripe_customer = users(:existing_stripe_customer)
+    @stripe_card_customer = users(:stripe_card_customer)
   end
 
   test "name cannot be nil" do

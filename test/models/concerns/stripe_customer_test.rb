@@ -5,6 +5,13 @@ module StripeCustomerTest
     test "#stripe_customer_id" do
       assert_respond_to @non_stripe_customer, :stripe_customer_id
       assert_respond_to @existing_stripe_customer, :stripe_customer_id
+      assert_respond_to @stripe_card_customer, :stripe_customer_id
+    end
+
+    test "#stripe_card_id" do
+      assert_respond_to @non_stripe_customer, :stripe_card_id
+      assert_respond_to @existing_stripe_customer, :stripe_card_id
+      assert_respond_to @stripe_card_customer, :stripe_card_id
     end
 
     test "#create_stipe_customer with existing stripe customer" do
@@ -22,6 +29,35 @@ module StripeCustomerTest
       @non_stripe_customer.create_stipe_customer
 
       assert_equal new_customer_id, @non_stripe_customer.stripe_customer_id
+    end
+
+    test "#create_stripe_card with new stripe customer" do
+      assert_raises StripeCustomer::NonExistingStripeCustomerError do
+        @non_stripe_customer.create_stripe_card
+      end
+    end
+
+    test '#create_stripe_card with existing stripe card' do
+      assert_raises StripeCustomer::ExistingStripeCardError do
+        @stripe_card_customer.create_stripe_card
+      end
+    end
+
+    test "#create_stripe_card with existing stripe customer" do
+      stripe_card_id = "stripe card id"
+      Stripe::Customer.stubs(:create_source)
+        .with(
+          @existing_stripe_customer.stripe_customer_id,
+          {
+            source: StripeCustomer::DEFAULT_SOURCE,
+          }
+        )
+        .returns(Stripe::Card.new(id: stripe_card_id))
+        .once
+
+      @existing_stripe_customer.create_stripe_card
+
+      assert_equal stripe_card_id, @existing_stripe_customer.stripe_card_id
     end
 
     test "#charge_stripe_customer with new stripe customer" do

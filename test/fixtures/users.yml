@@ -8,3 +8,9 @@ existing_stripe_customer:
   name: MyString
   email: MyString
   stripe_customer_id: MyString
+
+stripe_card_customer:
+  name: MyString
+  email: MyString
+  stripe_customer_id: MyString
+  stripe_card_id: MyString
