@@ -1,0 +1,9 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stripe_charge_id: MyString
+  user: stripe_card_customer
+
+two:
+  stripe_charge_id: MyString
+  user: stripe_card_customer
