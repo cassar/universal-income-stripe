@@ -13,7 +13,7 @@ module StripeCustomerTest
       end
     end
 
-    test "#create_stripe_customer with new customer" do
+    test "#create_stripe_customer with new stripe customer" do
       Stripe::Customer.stubs(:create)
         .with({name: @non_stripe_customer.name, email: @non_stripe_customer.email})
         .returns(Stripe::Customer.new(id: new_customer_id = "new customer id"))
