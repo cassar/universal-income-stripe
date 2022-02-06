@@ -32,11 +32,12 @@ module StripeCustomer
     def create_stripe_charge!(amount:)
       raise NonExistingStripeCustomerError unless stripe_customer_id
 
-      Stripe::Charge.create({
+      charge = Stripe::Charge.create({
         amount: amount,
         currency: DEFAULT_CURRENCY,
         customer: stripe_customer_id
       })
+      charges.create! stripe_charge_id: charge.id
     end
   end
 end
