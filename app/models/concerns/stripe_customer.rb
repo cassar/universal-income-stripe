@@ -9,7 +9,7 @@ module StripeCustomer
   DEFAULT_SOURCE = 'tok_amex'
 
   included do
-    def create_stipe_customer
+    def create_stipe_customer!
       raise ExistingStripeCustomerError if stripe_customer_id
 
       customer = Stripe::Customer.create({name: name, email: email})

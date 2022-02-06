@@ -14,19 +14,19 @@ module StripeCustomerTest
       assert_respond_to @stripe_card_customer, :stripe_card_id
     end
 
-    test "#create_stipe_customer with existing stripe customer" do
+    test "#create_stipe_customer! with existing stripe customer" do
       assert_raises StripeCustomer::ExistingStripeCustomerError do
-        @existing_stripe_customer.create_stipe_customer
+        @existing_stripe_customer.create_stipe_customer!
       end
     end
 
-    test "#create_stripe_customer with new stripe customer" do
+    test "#create_stipe_customer! with new stripe customer" do
       Stripe::Customer.stubs(:create)
         .with({name: @non_stripe_customer.name, email: @non_stripe_customer.email})
         .returns(Stripe::Customer.new(id: new_customer_id = "new customer id"))
         .once
 
-      @non_stripe_customer.create_stipe_customer
+      @non_stripe_customer.create_stipe_customer!
 
       assert_equal new_customer_id, @non_stripe_customer.stripe_customer_id
     end
