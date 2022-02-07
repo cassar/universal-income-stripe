@@ -13,7 +13,9 @@ module StripeBalance
     private
 
     def default_amount_from(fund_type)
-      default_currency_from(Stripe::Balance.retrieve.send(fund_type)).amount
+      stripe_objects = Stripe::Balance.retrieve.send(fund_type)
+      default_object = default_currency_from(stripe_objects)
+      default_object.amount
     end
 
     def default_currency_from(stripe_objects)
