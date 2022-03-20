@@ -47,6 +47,16 @@ class PeriodTest < ActiveSupport::TestCase
     assert_equal 700, next_period.undistributed_funds
   end
 
+  test "#next_period when extra_funds is not positive" do
+    assert_raises Period::NoExtraFundsError do
+      Period.new(
+        duration: 1.week,
+        start_date: Date.parse("2020 Dec 4th"),
+        calculator: AlwaysUndistributedFunds.new
+      ).next_period extra_funds: 0
+    end
+  end
+
   class AlwaysDividend
     def dividend_to_pay?
       true

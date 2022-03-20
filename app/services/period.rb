@@ -1,6 +1,8 @@
 class Period
   attr_reader :duration, :start_date, :calculator
 
+  class NoExtraFundsError < StandardError; end
+
   def initialize duration:, start_date:, calculator:
     @duration = duration
     @start_date = start_date
@@ -24,6 +26,8 @@ class Period
   end
 
   def next_period extra_funds:
+    raise NoExtraFundsError unless extra_funds.positive?
+
     Period.new(
       duration: duration,
       start_date: start_date + duration,
