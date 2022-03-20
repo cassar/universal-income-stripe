@@ -1,7 +1,7 @@
 require "test_helper"
 
 class PeriodTest < ActiveSupport::TestCase
-  test "dividend_to_pay?" do
+  test "#dividend_to_pay?" do
     Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
@@ -9,7 +9,7 @@ class PeriodTest < ActiveSupport::TestCase
     ).dividend_to_pay?
   end
 
-  test "undistributed_funds" do
+  test "#undistributed_funds" do
     assert_equal 500, Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
@@ -17,7 +17,7 @@ class PeriodTest < ActiveSupport::TestCase
     ).undistributed_funds
   end
 
-  test "dividend" do
+  test "#dividend" do
     assert_equal 100, Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
@@ -25,7 +25,7 @@ class PeriodTest < ActiveSupport::TestCase
     ).dividend
   end
 
-  test "dividend_date is end of the period" do
+  test "#dividend_date is end of the period" do
     date = Date.parse("2020 Dec 4th")
     assert_equal (date + 1.week), Period.new(
       duration: 1.week,
@@ -34,7 +34,7 @@ class PeriodTest < ActiveSupport::TestCase
     ).dividend_date
   end
 
-  test "next_period" do
+  test "#next_period" do
     date = Date.parse("2020 Dec 4th")
     next_period =  Period.new(
       duration: 1.week,
