@@ -34,19 +34,19 @@ module Dividend
         return periods if (last_period = periods.last).dividend_to_pay?
 
         periods << last_period.next_period(
-          extra_funds: User.periodic_contributions
+          extra_funds: Member.periodic_contributions
         )
       end
     end
 
     def first_period
       Period.new(
-        duration: User.period_duration,
+        duration: Member.period_duration,
         start_date: Date.today,
         calculator: DistributionCalculator.new(
-          member_count: User.count,
-          available_funds: User.available_stripe_balance,
-          minimum_dividend: User.minimum_dividend
+          member_count: Member.count,
+          available_funds: Member.available_stripe_balance,
+          minimum_dividend: Member.minimum_dividend
         )
       )
     end

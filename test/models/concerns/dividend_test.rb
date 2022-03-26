@@ -14,12 +14,12 @@ module DividendTest
 
     def common_dividend_stubs
       @date = Date.parse("2020 Dec 4th")
-      User.stubs(:period_duration).returns(1.week).once
+      Member.stubs(:period_duration).returns(1.week).once
       Date.stubs(:today).returns(@date).once
-      User.stubs(:count).returns(3).once
-      User.stubs(:available_stripe_balance).returns(300).once
-      User.stubs(:minimum_dividend).returns(200).once
-      User.stubs(:periodic_contributions).returns(300).once
+      Member.stubs(:count).returns(3).once
+      Member.stubs(:available_stripe_balance).returns(300).once
+      Member.stubs(:minimum_dividend).returns(200).once
+      Member.stubs(:periodic_contributions).returns(300).once
     end
   end
 end
