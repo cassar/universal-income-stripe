@@ -10,10 +10,6 @@ class UserTest < ActiveSupport::TestCase
     @balanceable_class = @dividendable_class = User
   end
 
-  test "associations" do
-    assert_includes users(:stripe_card_customer).charges, charges(:one)
-  end
-
   test "name cannot be nil" do
     error = assert_raises ActiveRecord::RecordInvalid do
       User.new(name: "", email: "rudiger@hey.com").save!

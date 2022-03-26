@@ -59,32 +59,5 @@ module StripeCustomerTest
 
       assert_equal stripe_card_id, @stripe_customer.stripe_card_id
     end
-
-    test "#create_stripe_charge! with new stripe customer" do
-      assert_no_difference 'Charge.count' do
-        assert_raises StripeCustomer::NonExistingStripeCustomerError do
-          @non_stripe_customer.create_stripe_charge!(amount: 5000)
-        end
-      end
-    end
-
-    test "#create_stripe_charge! with existing stripe customer" do
-      amount = 5000
-      stripe_charge_id = 'stripe_charge_id'
-      assert_not Charge.where(stripe_charge_id: stripe_charge_id).any?
-      Stripe::Charge.stubs(:create)
-        .with({
-          amount: amount,
-          currency: StripeCustomer::DEFAULT_CURRENCY,
-          customer: @stripe_customer.stripe_customer_id
-        })
-        .returns(Stripe::Charge.new(id: stripe_charge_id))
-        .once
-
-      assert_difference 'Charge.count' do
-        @stripe_customer.create_stripe_charge!(amount: amount)
-      end
-      assert_equal 1, @stripe_customer.charges.where(stripe_charge_id: stripe_charge_id).count
-    end
   end
 end
