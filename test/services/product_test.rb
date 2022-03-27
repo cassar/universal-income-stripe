@@ -8,7 +8,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test '.id when stripe_product_id environment variable set' do
-    ENV['stripe_product_id'] = '57_stripe_product_id_a73'
+    ENV.stubs(:[]).with("stripe_product_id").returns('57_stripe_product_id_a73')
+    assert_not_nil ENV['stripe_product_id']
+
     assert_equal ENV['stripe_product_id'], Product.id
   end
 end
