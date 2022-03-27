@@ -1,4 +1,4 @@
-class DistributionCalculator
+class Distribution
   attr_reader :member_count, :available_funds, :minimum_dividend
 
   def initialize member_count:, available_funds:, minimum_dividend:

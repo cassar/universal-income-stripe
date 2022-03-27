@@ -31,7 +31,7 @@ class Period
     Period.new(
       duration: duration,
       start_date: start_date + duration,
-      calculator: DistributionCalculator.new(
+      calculator: Distribution.new(
         member_count: calculator.member_count,
         available_funds: undistributed_funds + extra_funds,
         minimum_dividend: calculator.minimum_dividend

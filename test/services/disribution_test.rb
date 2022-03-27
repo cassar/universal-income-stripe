@@ -1,8 +1,8 @@
 require "test_helper"
 
-class DistributionCalculatorTest < ActiveSupport::TestCase
+class DistributionTest < ActiveSupport::TestCase
   test "#dividend_to_pay? when dividend is greater than the minimum dividend" do
-    assert DistributionCalculator.new(
+    assert Distribution.new(
       available_funds: 6,
       minimum_dividend: 5,
       member_count: 1,
@@ -10,7 +10,7 @@ class DistributionCalculatorTest < ActiveSupport::TestCase
   end
 
   test "#dividend_to_pay? when dividend is equal to the minimum dividend" do
-    assert DistributionCalculator.new(
+    assert Distribution.new(
       available_funds: 5,
       minimum_dividend: 5,
       member_count: 1,
@@ -18,7 +18,7 @@ class DistributionCalculatorTest < ActiveSupport::TestCase
   end
 
   test "#dividend_to_pay? when dividend is less than than minimum dividend" do
-    assert_not DistributionCalculator.new(
+    assert_not Distribution.new(
       available_funds: 4,
       minimum_dividend: 5,
       member_count: 1,
@@ -26,7 +26,7 @@ class DistributionCalculatorTest < ActiveSupport::TestCase
   end
 
   test "#dividend when there is a dividend to pay" do
-    calculator = DistributionCalculator.new(
+    calculator = Distribution.new(
       available_funds: 10,
       minimum_dividend: 5,
       member_count: 2,
