@@ -1,7 +1,5 @@
-module Dividend
-  extend ActiveSupport::Concern
-
-  class_methods do
+class Dividend
+  class << self
     def next_dividend_amount
       next_paying_period.dividend
     end

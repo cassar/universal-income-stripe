@@ -1,5 +1,5 @@
 class Member < ApplicationRecord
-  include Customer, Balance, Dividend, Subscription
+  include Customer, Subscription
 
   validates :name, :email, presence: true
 end

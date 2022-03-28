@@ -1,7 +1,5 @@
-module Balance
-  extend ActiveSupport::Concern
-
-  class_methods do
+class Balance
+  class << self
     def available_stripe_balance
       default_amount_from(:available)
     end
