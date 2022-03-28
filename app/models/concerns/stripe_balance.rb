@@ -20,7 +20,7 @@ module StripeBalance
 
     def default_currency_from(stripe_objects)
       stripe_objects.find do |stripe_object|
-        stripe_object.currency == StripeCustomer::DEFAULT_CURRENCY
+        stripe_object.currency == Customer::DEFAULT_CURRENCY
       end
     end
   end

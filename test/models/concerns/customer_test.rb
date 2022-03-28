@@ -1,4 +1,4 @@
-module StripeCustomerTest
+module CustomerTest
   extend ActiveSupport::Concern
 
   included do
@@ -15,7 +15,7 @@ module StripeCustomerTest
     end
 
     test "#create_stipe_customer! with existing stripe customer" do
-      assert_raises StripeCustomer::ExistingStripeCustomerError do
+      assert_raises Customer::ExistingCustomerError do
         @stripe_customer.create_stipe_customer!
       end
     end
@@ -32,13 +32,13 @@ module StripeCustomerTest
     end
 
     test "#create_stripe_card! with new stripe customer" do
-      assert_raises StripeCustomer::NonExistingStripeCustomerError do
+      assert_raises Customer::NonExistingCustomerError do
         @non_stripe_customer.create_stripe_card!
       end
     end
 
     test '#create_stripe_card! with existing stripe card' do
-      assert_raises StripeCustomer::ExistingStripeCardError do
+      assert_raises Customer::ExistingStripeCardError do
         @stripe_card_customer.create_stripe_card!
       end
     end
@@ -49,7 +49,7 @@ module StripeCustomerTest
         .with(
           @stripe_customer.stripe_customer_id,
           {
-            source: StripeCustomer::DEFAULT_SOURCE,
+            source: Customer::DEFAULT_SOURCE,
           }
         )
         .returns(Stripe::Card.new(id: stripe_card_id))

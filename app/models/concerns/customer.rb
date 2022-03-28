@@ -1,8 +1,8 @@
-module StripeCustomer
+module Customer
   extend ActiveSupport::Concern
 
-  class ExistingStripeCustomerError    < StandardError; end
-  class NonExistingStripeCustomerError < StandardError; end
+  class ExistingCustomerError    < StandardError; end
+  class NonExistingCustomerError < StandardError; end
   class ExistingStripeCardError        < StandardError; end
 
   DEFAULT_CURRENCY = 'aud'
@@ -10,14 +10,14 @@ module StripeCustomer
 
   included do
     def create_stipe_customer!
-      raise ExistingStripeCustomerError if stripe_customer_id
+      raise ExistingCustomerError if stripe_customer_id
 
       customer = Stripe::Customer.create({name: name, email: email})
       update stripe_customer_id: customer.id
     end
 
     def create_stripe_card!
-      raise NonExistingStripeCustomerError unless stripe_customer_id
+      raise NonExistingCustomerError unless stripe_customer_id
       raise ExistingStripeCardError if stripe_card_id
 
       card = Stripe::Customer.create_source(

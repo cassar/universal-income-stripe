@@ -15,7 +15,7 @@ class Price
     def find_by_unit_amount unit_amount
       prices = Stripe::Price.list({
         active: true,
-        currency: StripeCustomer::DEFAULT_CURRENCY,
+        currency: Customer::DEFAULT_CURRENCY,
         product: Product.id,
         type: DEFAULT_TYPE
       })
@@ -26,7 +26,7 @@ class Price
     def create unit_amount:
       Stripe::Price.create({
         unit_amount: unit_amount,
-        currency: StripeCustomer::DEFAULT_CURRENCY,
+        currency: Customer::DEFAULT_CURRENCY,
         recurring: {interval: DEFAULT_INTERVAL},
         product: Product.id,
       })
