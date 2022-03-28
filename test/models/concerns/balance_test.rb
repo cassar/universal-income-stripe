@@ -1,4 +1,4 @@
-module StripeBalanceTest
+module BalanceTest
   extend ActiveSupport::Concern
 
   included do

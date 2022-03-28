@@ -1,5 +1,5 @@
 class Member < ApplicationRecord
-  include Customer, StripeBalance, Dividend, Subscription
+  include Customer, Balance, Dividend, Subscription
 
   validates :name, :email, presence: true
 end

@@ -1,7 +1,7 @@
 require "test_helper"
 
 class MemberTest < ActiveSupport::TestCase
-  include CustomerTest, StripeBalanceTest, DividendTest, SubscriptionTest
+  include CustomerTest, BalanceTest, DividendTest, SubscriptionTest
 
   setup do
     @non_stripe_customer = members(:one)

@@ -1,4 +1,4 @@
-module StripeBalance
+module Balance
   extend ActiveSupport::Concern
 
   class_methods do
