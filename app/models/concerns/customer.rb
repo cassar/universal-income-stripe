@@ -3,7 +3,7 @@ module Customer
 
   class ExistingCustomerError    < StandardError; end
   class NonExistingCustomerError < StandardError; end
-  class ExistingStripeCardError        < StandardError; end
+  class ExistingStripeCardError  < StandardError; end
 
   DEFAULT_CURRENCY = 'aud'
   DEFAULT_SOURCE = 'tok_amex'
