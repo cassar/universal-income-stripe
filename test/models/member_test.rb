@@ -4,7 +4,7 @@ class MemberTest < ActiveSupport::TestCase
   include CustomerTest, SubscriptionTest
 
   setup do
-    @non_stripe_customer = members(:one)
+    @non_stripe = members(:one)
     @stripe_customer = members(:stripe_customer)
     @stripe_card_customer = members(:stripe_card_customer)
   end
