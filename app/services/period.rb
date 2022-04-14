@@ -30,12 +30,18 @@ class Period
 
     Period.new(
       duration: duration,
-      start_date: start_date + duration,
+      start_date: next_start_date,
       distribution: Distribution.new(
         member_count: distribution.member_count,
         available_funds: undistributed_funds + contributions,
         minimum_dividend: distribution.minimum_dividend
       )
     )
+  end
+
+  private
+
+  def next_start_date
+    start_date + duration
   end
 end
