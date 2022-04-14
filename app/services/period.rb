@@ -25,15 +25,15 @@ class Period
     start_date + duration
   end
 
-  def next_period extra_funds:
-    raise NoExtraFundsError unless extra_funds.positive?
+  def next_period contributions:
+    raise NoExtraFundsError unless contributions.positive?
 
     Period.new(
       duration: duration,
       start_date: start_date + duration,
       distribution: Distribution.new(
         member_count: distribution.member_count,
-        available_funds: undistributed_funds + extra_funds,
+        available_funds: undistributed_funds + contributions,
         minimum_dividend: distribution.minimum_dividend
       )
     )

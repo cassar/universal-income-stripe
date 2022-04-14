@@ -16,7 +16,7 @@ class Dividend
       100
     end
 
-    def periodic_contributions
+    def contributions
       300
     end
 
@@ -32,7 +32,7 @@ class Dividend
         return periods if (last_period = periods.last).dividend_to_pay?
 
         periods << last_period.next_period(
-          extra_funds: Member.periodic_contributions
+          contributions: Member.contributions
         )
       end
     end

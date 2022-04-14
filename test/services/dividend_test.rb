@@ -18,6 +18,6 @@ class DividendTest < ActiveSupport::TestCase
     Member.stubs(:count).returns(3).once
     Member.stubs(:available_stripe_balance).returns(300).once
     Member.stubs(:minimum_dividend).returns(200).once
-    Member.stubs(:periodic_contributions).returns(300).once
+    Member.stubs(:contributions).returns(300).once
   end
 end

@@ -40,20 +40,20 @@ class PeriodTest < ActiveSupport::TestCase
       duration: 1.week,
       start_date: date,
       distribution: AlwaysUndistributedFunds.new
-    ).next_period(extra_funds: 200)
+    ).next_period(contributions: 200)
 
     assert_equal 1.week, next_period.duration
     assert_equal date + 1.week, next_period.start_date
     assert_equal 700, next_period.undistributed_funds
   end
 
-  test "#next_period when extra_funds is not positive" do
+  test "#next_period when contributions is not positive" do
     assert_raises Period::NoExtraFundsError do
       Period.new(
         duration: 1.week,
         start_date: Date.parse("2020 Dec 4th"),
         distribution: AlwaysUndistributedFunds.new
-      ).next_period extra_funds: 0
+      ).next_period contributions: 0
     end
   end
 
