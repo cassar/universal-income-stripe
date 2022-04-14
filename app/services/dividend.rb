@@ -41,7 +41,7 @@ class Dividend
       Period.new(
         duration: Member.period_duration,
         start_date: Date.today,
-        calculator: Distribution.new(
+        distribution: Distribution.new(
           member_count: Member.count,
           available_funds: Member.available_stripe_balance,
           minimum_dividend: Member.minimum_dividend

@@ -5,7 +5,7 @@ class PeriodTest < ActiveSupport::TestCase
     Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
-      calculator: AlwaysDividend.new
+      distribution: AlwaysDividend.new
     ).dividend_to_pay?
   end
 
@@ -13,7 +13,7 @@ class PeriodTest < ActiveSupport::TestCase
     assert_equal 500, Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
-      calculator: AlwaysUndistributedFunds.new
+      distribution: AlwaysUndistributedFunds.new
     ).undistributed_funds
   end
 
@@ -21,7 +21,7 @@ class PeriodTest < ActiveSupport::TestCase
     assert_equal 100, Period.new(
       duration: 1.week,
       start_date: Date.parse("2020 Dec 4th"),
-      calculator: AlwaysDividend.new
+      distribution: AlwaysDividend.new
     ).dividend
   end
 
@@ -30,7 +30,7 @@ class PeriodTest < ActiveSupport::TestCase
     assert_equal (date + 1.week), Period.new(
       duration: 1.week,
       start_date: date,
-      calculator: AlwaysDividend.new
+      distribution: AlwaysDividend.new
     ).dividend_date
   end
 
@@ -39,7 +39,7 @@ class PeriodTest < ActiveSupport::TestCase
     next_period =  Period.new(
       duration: 1.week,
       start_date: date,
-      calculator: AlwaysUndistributedFunds.new
+      distribution: AlwaysUndistributedFunds.new
     ).next_period(extra_funds: 200)
 
     assert_equal 1.week, next_period.duration
@@ -52,7 +52,7 @@ class PeriodTest < ActiveSupport::TestCase
       Period.new(
         duration: 1.week,
         start_date: Date.parse("2020 Dec 4th"),
-        calculator: AlwaysUndistributedFunds.new
+        distribution: AlwaysUndistributedFunds.new
       ).next_period extra_funds: 0
     end
   end

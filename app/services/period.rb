@@ -1,24 +1,24 @@
 class Period
-  attr_reader :duration, :start_date, :calculator
+  attr_reader :duration, :start_date, :distribution
 
   class NoExtraFundsError < StandardError; end
 
-  def initialize duration:, start_date:, calculator:
+  def initialize duration:, start_date:, distribution:
     @duration = duration
     @start_date = start_date
-    @calculator = calculator
+    @distribution = distribution
   end
 
   def dividend_to_pay?
-    calculator.dividend_to_pay?
+    distribution.dividend_to_pay?
   end
 
   def undistributed_funds
-    calculator.available_funds
+    distribution.available_funds
   end
 
   def dividend
-    calculator.dividend
+    distribution.dividend
   end
 
   def dividend_date
@@ -31,10 +31,10 @@ class Period
     Period.new(
       duration: duration,
       start_date: start_date + duration,
-      calculator: Distribution.new(
-        member_count: calculator.member_count,
+      distribution: Distribution.new(
+        member_count: distribution.member_count,
         available_funds: undistributed_funds + extra_funds,
-        minimum_dividend: calculator.minimum_dividend
+        minimum_dividend: distribution.minimum_dividend
       )
     )
   end

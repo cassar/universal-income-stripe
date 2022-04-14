@@ -26,13 +26,13 @@ class DistributionTest < ActiveSupport::TestCase
   end
 
   test "#dividend when there is a dividend to pay" do
-    calculator = Distribution.new(
+    distribution = Distribution.new(
       available_funds: 10,
       minimum_dividend: 5,
       member_count: 2,
     )
 
-    assert calculator.dividend_to_pay?
-    assert_equal 5, calculator.dividend
+    assert distribution.dividend_to_pay?
+    assert_equal 5, distribution.dividend
   end
 end
