@@ -6,7 +6,7 @@ module Account
   DEFAULT_TYPE = 'standard'
 
   included do
-    def create_stipe_account!
+    def create_stripe_account!
       raise ExistingAccountError if stripe_account_id
 
       account = Stripe::Account.create({

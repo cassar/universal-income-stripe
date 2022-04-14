@@ -9,7 +9,7 @@ module AccountTest
 
     test "#create_stipe_account! with existing stripe account" do
       assert_raises Account::ExistingAccountError do
-        @stripe_account.create_stipe_account!
+        @stripe_account.create_stripe_account!
       end
     end
 
@@ -19,7 +19,7 @@ module AccountTest
         .returns(Stripe::Account.new(id: new_account_id = "new account id"))
         .once
 
-      @non_stripe.create_stipe_account!
+      @non_stripe.create_stripe_account!
 
       assert_equal new_account_id, @non_stripe.stripe_account_id
     end
