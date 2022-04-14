@@ -1,12 +1,13 @@
 require "test_helper"
 
 class MemberTest < ActiveSupport::TestCase
-  include CustomerTest, SubscriptionTest
+  include CustomerTest, SubscriptionTest, AccountTest
 
   setup do
     @non_stripe = members(:one)
     @stripe_customer = members(:stripe_customer)
     @stripe_card_customer = members(:stripe_card_customer)
+    @stripe_account = members(:stripe_account)
   end
 
   test "name cannot be nil" do
